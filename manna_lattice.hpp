@@ -15,11 +15,7 @@ public:
           nr_particles(nr_particles_),
           state(L_, 0),
           delta(L_, 0),
-          // Use binomial distribution for values larger-equal that.
-          // Only affects performance (if >= 2).
-          binomial_threshold(2),
           gen(42),
-          real_distr(0, 1),
           int_distr(0, L_ - 1),
           alive(true)
     {}
@@ -51,26 +47,9 @@ public:
         alive = false;
         for (index_t i = 0; i < L; ++i) {
             const state_t nr_particles_on_site = state[i];
-            if (nr_particles_on_site >= binomial_threshold) {
+            if (nr_particles_on_site >= 2) {
                 alive = true;
                 distribute_binomial(i);
-            }
-            else if (nr_particles_on_site >= 2) {
-                alive = true;
-                distribute_sequential(i);
-            }
-        }
-    }
-    void distribute_sequential(const index_t site_index)
-    {
-        const state_t nr_particles_to_move = state[site_index];
-        state[site_index] = 0;
-        for (index_t i = 0; i < nr_particles_to_move; ++i) {
-            if (real_distr(gen) < 0.5) {
-                ++delta[left(site_index)];
-            }
-            else {
-                ++delta[right(site_index)];
             }
         }
     }
@@ -114,7 +93,6 @@ private:
     std::vector<state_t> delta;
     state_t binomial_threshold; 
     std::mt19937_64 gen;
-    std::uniform_real_distribution<float_t> real_distr;
     std::uniform_int_distribution<index_t> int_distr;
     bool alive;
 };
