@@ -2,8 +2,8 @@
 #define MANNA_HPP_KJS
 
 #include <memory>
-#include <vector>
 
+#include "manna_lattice.hpp"
 #include "parameter.hpp"
 #include "variable.hpp"
 
@@ -16,13 +16,16 @@ public:
     void simulate_sample();
     void print_results();
 private:
-    // Input
+    // input
     parameter<index_t> nr_samples;
     parameter<index_t> lattice_size;
     parameter<index_t> nr_steps;
     parameter<index_t> record_every;
-    // Output
+    parameter<float_t> number_density;
+    // output
     std::vector<std::shared_ptr<variable> > order_parameter;
+    // state
+    manna_lattice lattice;
 };
 
 #endif // #ifndef MANNA_HPP_KJS
