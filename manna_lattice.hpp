@@ -20,7 +20,8 @@ public:
           binomial_threshold(2),
           gen(42),
           real_distr(0, 1),
-          int_distr(0, L_ - 1)
+          int_distr(0, L_ - 1),
+          alive(true)
     {}
     void reset()
     {
@@ -28,6 +29,7 @@ public:
         for (index_t i = 0; i < nr_particles; ++i) {
             ++state[int_distr(gen)];
         }
+        alive = true;
     }
     void take_step(index_t nr_steps)
     {
@@ -37,18 +39,24 @@ public:
     }
     void take_step()
     {
+        if (!alive) {
+            return;
+        }
         move_particles_to_delta();
         move_delta_to_state();
     }
     void move_particles_to_delta()
     {
         delta.assign(L, 0);
+        alive = false;
         for (index_t i = 0; i < L; ++i) {
             const state_t nr_particles_on_site = state[i];
             if (nr_particles_on_site >= binomial_threshold) {
+                alive = true;
                 distribute_binomial(i);
             }
             else if (nr_particles_on_site >= 2) {
+                alive = true;
                 distribute_sequential(i);
             }
         }
@@ -108,6 +116,7 @@ private:
     std::mt19937_64 gen;
     std::uniform_real_distribution<float_t> real_distr;
     std::uniform_int_distribution<index_t> int_distr;
+    bool alive;
 };
 
 #endif // #ifndef MANNA_LATTICE_HPP

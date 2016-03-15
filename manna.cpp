@@ -42,7 +42,7 @@ void manna::simulate_sample()
 void manna::print_results()
 {
     std::cout << "Fixed energy Manna model\n";
-    precise_output<float_t> out("name.txt");
+    precise_output<float_t> out("M_" + std::to_string(nr_samples()) + "_L_" + std::to_string(lattice_size()) + "_S_" + std::to_string(nr_steps()) + "_R_" + std::to_string(number_density()) + ".txt");
     for (index_t i = 0; i < order_parameter.size(); ++i) {
         out << i * record_every() << "\t" << order_parameter[i]->mean();
         out << "\t" << order_parameter[i]->error() << "\n";
