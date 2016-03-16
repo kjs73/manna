@@ -10,7 +10,7 @@ using parallel updates.
 Setting BOOSTPATH to point to a recent boost release (http://www.boost.org) and using the CMake file should be enough to compile the program.
 
 References
-==========
+----------
 
 - S. S. Manna, Two-state model of self-organized criticality, J. Phys. A 24, L363 (1991)
 - S. Lübeck and P. C. Heger, Universal finite-size scaling behavior and universal dynamical scaling behavior of absorbing phase transitions with a conserved field, Phys. Rev. E 68, 056102 (2003)
