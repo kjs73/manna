@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "manna_lattice.hpp"
 
 manna_lattice::manna_lattice(const index_t L_, const index_t nr_particles_)

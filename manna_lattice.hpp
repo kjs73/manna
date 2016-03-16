@@ -1,7 +1,6 @@
 #ifndef MANNA_LATTICE_HPP
 #define MANNA_LATTICE_HPP
 
-#include <algorithm>
 #include <random>
 #include <vector>
 
