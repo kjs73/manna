@@ -9,6 +9,8 @@ using parallel updates.
 
 Setting BOOSTPATH to point to a recent boost release (http://www.boost.org) and using the CMake file should be enough to compile the program.
 
+Run ./test for unit tests.
+
 References
 ----------
 
